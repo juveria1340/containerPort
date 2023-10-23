@@ -21,5 +21,5 @@ jobs:
           echo "Container Port: $containerPort"
 
           # SSH command using the current containerPort
-          ssh user@host "your_command_using_$containerPort"
+          # ssh user@host "your_command_using_$containerPort"
         done

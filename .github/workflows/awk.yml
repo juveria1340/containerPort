@@ -13,20 +13,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Install jq
-      run: |
-        sudo apt-get update
-        sudo apt-get install jq -y
-      shell: bash
-
     - name: Extract and SSH on ContainerPorts
       run: |
-        # Loop over each containerPort in pod.yaml
-        cat pod.yaml
-        cat pod.yaml | jq -r '.spec.containers[].ports[].containerPort' | while read -r containerPort; do
+        # Read containerPort values without jq
+        containerPorts=($(awk '/containerPort:/ {print $2}' pod.yaml))
+
+        # Loop over each containerPort
+        for containerPort in "${containerPorts[@]}"; do
           # Print the current containerPort
           echo "Container Port: $containerPort"
 
           # SSH command using the current containerPort
-          # ssh user@host "your_command_using_$containerPort"
+          ssh user@host "your_command_using_$containerPort"
         done

@@ -16,7 +16,7 @@ jobs:
     - name: Extract and SSH on ContainerPorts
       run: |
          pwd
-         yaml_file=".\pod.yaml"
+         yaml_file="pod.yaml"
          container_ports=($(grep -A2 'containerPort' "$yaml_file" | grep -oP '(?<=containerPort: )\d+'))
          for container_port in "${container_ports[@]}"; do
              echo "Container Port: $container_port"

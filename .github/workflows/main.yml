@@ -1,0 +1,23 @@
+name: SSH Commands on ContainerPorts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ssh-on-container-ports:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Extract and SSH on ContainerPorts
+      run: |
+        yaml_file="pod.yaml"
+        container_ports=($(python -c "import yaml; data = yaml.safe_load(open('$yaml_file')); print(' '.join([str(container['ports'][0]['containerPort']) for container in data['spec']['containers']]))"))
+
+        for container_port in "${container_ports[@]}"; do
+          echo "Container Port: $container_port"
+        done

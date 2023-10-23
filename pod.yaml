@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: linuxpver
+spec:
+  containers:
+    - name: git
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/test/bosch-git:1.0.1
+      command:
+        - git
+        - clone
+        - https://umr5kor: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@github.boschdevcloud.com/UMR5KOR/linux_pver.git
+        - /files
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          memory: 1Gi
+          cpu: "0.25"
+        limits:
+          memory: 1Gi
+          cpu: "0.25"
+
+    - name: compiler-ghsarm
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/compiler_ghsarm:comp_202114_2fp_x64
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+        - name: hexmod-templates
+          mountPath: /app/hexmodx    
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "1Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"  
+
+    - name: hexmodx
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/hexmodx:14.7.0
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+        - name: hexmod-templates
+          mountPath: /templates   
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to hexmodx && tail -f /dev/null "]    
+
+    - name: rtaos
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/rtaos:12.0.0
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to rtaos && tail -f /dev/null "]      
+
+    - name: vrteb
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/vrteb:23.01-arcl
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to vrteb && tail -f /dev/null "]          
+
+    - name: a2lextd
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/a2lextd:2.24.1
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to a2lextd && tail -f /dev/null "]     
+
+    - name: ice-ara2l
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/ice_ara2l:3.0.2
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to ice-ara2l && tail -f /dev/null "]           
+
+    - name: config-rtegen
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/config_rtegen:2.24.0_12.0.0
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to config-rtegen && tail -f /dev/null "]      
+
+    - name: rteconfgen
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/rteconfgen:1.7.0
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to rteconfgen && tail -f /dev/null "]      
+
+    - name: a2lmerger
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/a2lmerger:4.9.2
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to a2lmerger && tail -f /dev/null "]      
+
+    - name: fixcase
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/fixcase:1.0.0
+      tty: true
+      volumeMounts:
+        - name: intpf-st5-28-p4
+          mountPath: /files
+      resources:
+        requests:
+          cpu: "0.25"
+          memory: "2Gi"    
+        limits:
+          cpu: "0.25"
+          memory: "2Gi"
+      command: ["/bin/sh", "-c", "echo welcome to fixcase && tail -f /dev/null "]      
+                            
+  imagePullSecrets:
+    - name: regcred
+
+  restartPolicy: Never
+
+  volumes:
+    - name: intpf-st5-28-p4
+      emptyDir: {}
+    - name:  hexmod-templates
+      emptyDir: {} 

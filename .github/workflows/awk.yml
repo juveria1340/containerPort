@@ -16,7 +16,7 @@ jobs:
     - name: Extract and SSH on ContainerPorts
       run: |
         # Read containerPort values without jq
-        containerPorts=($(awk '/containerPort:/ {print $2}' pod.yaml))
+        containerPorts=($(awk '/containerPort:/ {print $2}' containerPort/pod.yaml))
         echo "$containerPorts"
 
         # Loop over each containerPort

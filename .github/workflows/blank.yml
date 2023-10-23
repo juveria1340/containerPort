@@ -16,7 +16,7 @@ jobs:
     - name: Extract and SSH on ContainerPorts
       run: |
         # Loop over each containerPort in pod.yaml
-        cat path/to/pod.yaml | jq -r '.spec.containers[].ports[].containerPort' | while read -r containerPort; do
+        cat pod.yaml | jq -r '.spec.containers[].ports[].containerPort' | while read -r containerPort; do
           # Print the current containerPort
           echo "Container Port: $containerPort"
 

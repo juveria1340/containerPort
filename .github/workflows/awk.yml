@@ -17,7 +17,7 @@ jobs:
       run: |
         # Read containerPort values without jq
         containerPorts=($(awk '/containerPort:/ {print $2}' pod.yaml))
-        echo "${containerPorts}"
+        echo "$containerPorts"
 
         # Loop over each containerPort
         # for containerPort in "${containerPorts[@]}"; do

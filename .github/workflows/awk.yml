@@ -17,13 +17,13 @@ jobs:
       run: |
         # Read containerPort values without jq
         containerPorts=($(awk '/containerPort:/ {print $2}' pod.yaml))
-        echo "$containerPort"
+        echo "$containerPorts"
 
         # Loop over each containerPort
-        for containerPort in "${containerPorts[@]}"; do
+        # for containerPort in "${containerPorts[@]}"; do
           # Print the current containerPort
-          echo "Container Port: $containerPort"
+          # echo "Container Port: $containerPort"
 
           # SSH command using the current containerPort
-          ssh user@host "your_command_using_$containerPort"
+          # ssh user@host "your_command_using_$containerPort"
         done

@@ -15,7 +15,6 @@ jobs:
 
     - name: Extract and SSH on ContainerPorts
       run: |
-        # yaml_file="$GITHUB_WORKSPACE/pod.yaml"
         container_ports=($(python -c "import yaml; data = yaml.safe_load(open('pod.yaml')); print(' '.join([str(container['ports'][0]['containerPort']) for container in data['spec']['containers']]))"))
 
         for container_port in "${container_ports[@]}"; do

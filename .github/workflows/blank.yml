@@ -13,6 +13,12 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Install jq
+      run: |
+        sudo apt-get update
+        sudo apt-get install jq -y
+      shell: bash
+
     - name: Extract and SSH on ContainerPorts
       run: |
         # Loop over each containerPort in pod.yaml

@@ -4,27 +4,8 @@ metadata:
   name: linuxpver
 spec:
   containers:
-    - name: git
-      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/test/bosch-git:1.0.1
-      command:
-        - git
-        - clone
-        - https://umr5kor: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@github.boschdevcloud.com/UMR5KOR/linux_pver.git
-        - /files
-      tty: true
-      volumeMounts:
-        - name: intpf-st5-28-p4
-          mountPath: /files
-      resources:
-        requests:
-          memory: 1Gi
-          cpu: "0.25"
-        limits:
-          memory: 1Gi
-          cpu: "0.25"
-
     - name: compiler-ghsarm
-      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/compiler_ghsarm:comp_202114_2fp_x64
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/compiler_ghsarm:comp_202114_2fp_x64      
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -41,6 +22,8 @@ spec:
 
     - name: hexmodx
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/hexmodx:14.7.0
+      ports:
+        - containerPort: 2207
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -58,6 +41,8 @@ spec:
 
     - name: rtaos
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/rtaos:12.0.0
+      ports:
+        - containerPort: 2210
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -72,7 +57,7 @@ spec:
       command: ["/bin/sh", "-c", "echo welcome to rtaos && tail -f /dev/null "]      
 
     - name: vrteb
-      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/vrteb:23.01-arcl
+      image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/vrteb:23.01-arcl      
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -88,6 +73,9 @@ spec:
 
     - name: a2lextd
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/a2lextd:2.24.1
+      ports:
+        - containerPort: 2205
+        - containerPort: 2206
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -103,6 +91,9 @@ spec:
 
     - name: ice-ara2l
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/ice_ara2l:3.0.2
+      ports:
+        - containerPort: 2203
+        - containerPort: 2204
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -118,6 +109,8 @@ spec:
 
     - name: config-rtegen
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/config_rtegen:2.24.0_12.0.0
+      ports:
+        - containerPort: 2202
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -133,6 +126,8 @@ spec:
 
     - name: rteconfgen
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/rteconfgen:1.7.0
+      ports:
+        - containerPort: 2201
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -148,6 +143,8 @@ spec:
 
     - name: a2lmerger
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/a2lmerger:4.9.2
+      ports:
+        - containerPort: 2208
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -163,6 +160,8 @@ spec:
 
     - name: fixcase
       image: artifactory.boschdevcloud.com/ps-ec-fcde-cx-docker-images-eval-local/buildtools-linux/fixcase:1.0.0
+      ports:
+        - containerPort: 2209
       tty: true
       volumeMounts:
         - name: intpf-st5-28-p4
@@ -177,7 +176,7 @@ spec:
       command: ["/bin/sh", "-c", "echo welcome to fixcase && tail -f /dev/null "]      
                             
   imagePullSecrets:
-    - name: regcred
+    - name: regcred-x
 
   restartPolicy: Never
 
